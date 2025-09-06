@@ -1,0 +1,20 @@
+cluster: "my-hpc"
+account: "ai_research"
+default_partition: "gpu"
+logging:
+  dir: "runs/{date}/{job_name}"
+  stdout: "out_%j.log"
+  stderr: "err_%j.log"
+env:
+  modules: ["cuda/12.1"]
+  conda_env: "base"
+defaults:
+  gpus: 1
+  cpus_per_task: 8
+  mem: "32G"
+  time: "04:00:00"
+  gres: "gpu:1"
+  nodes: 1
+  ntasks_per_node: 1
+policy:
+  auto_retry: false

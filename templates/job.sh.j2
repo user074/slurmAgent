@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --job-name={{ job_name }}
+#SBATCH --partition={{ partition }}
+#SBATCH --account={{ account }}
+#SBATCH --time={{ time }}
+#SBATCH --nodes={{ nodes }}
+#SBATCH --ntasks-per-node={{ ntasks_per_node }}
+#SBATCH --cpus-per-task={{ cpus }}
+#SBATCH --mem={{ mem }}
+{% if gpus %}#SBATCH --gpus={{ gpus }}{% endif %}
+{% if gres %}#SBATCH --gres={{ gres }}{% endif %}
+#SBATCH --output={{ log_dir }}/{{ stdout }}
+#SBATCH --error={{ log_dir }}/{{ stderr }}
+
+set -euo pipefail
+
+if command -v module >/dev/null 2>&1; then
+  module purge
+  {% for m in modules %}module load {{ m }}
+  {% endfor %}
+fi
+source ~/.bashrc 2>/dev/null || true
+conda activate {{ conda_env }} 2>/dev/null || true
+
+cd {{ workdir }}
+{{ command_line }}
