@@ -38,7 +38,11 @@ def detect_partitions():
         parts.append({"name": P, "avail": a, "time": l, "cpus": c, "mem": m, "gres": G})
     return parts
 
-def pick_defaults_from_partitions(parts):
+def pick_defaults_from_partitions(parts, accounts):
+    # Filter partitions to only include those that match the user's accounts
+    if accounts:
+        parts = [p for p in parts if p["name"] in accounts]
+
     # Prefer a GPU partition that is available, else first available partition
     gpu_like = [p for p in parts if p["avail"].lower().startswith("up") and ("gpu" in (p["gres"] or "").lower() or "gpu" in p["name"].lower())]
     non_gpu = [p for p in parts if p["avail"].lower().startswith("up")]
