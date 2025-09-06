@@ -1,0 +1,2 @@
+# slurmAgent
+Make slurm easier
