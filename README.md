@@ -29,6 +29,10 @@ slurmAgent will (1) guess resources (optionally with Gemini), (2) render a batch
 * Optional: Google Gemini CLI for AI resource guesses.
 
 Install deps:
+Install 'npm' in conda:
+```bash
+conda install -c conda-forge nodejs
+```
 
 ```bash
 npm install -g @google/gemini-cli     # optional, for --ai

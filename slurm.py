@@ -253,7 +253,7 @@ def main():
         cluster = get_cluster_name()
         accounts = detect_accounts()
         parts = detect_partitions()
-        part, gres = pick_defaults_from_partitions(parts)
+        part, gres = pick_defaults_from_partitions(parts, accounts)
         account = accounts[0] if accounts else None
 
         print("\n[doctor] cluster snapshot")
